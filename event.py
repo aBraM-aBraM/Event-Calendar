@@ -32,6 +32,26 @@ class Event:
 
 	def get_second():
 		return time.tm_sec
+	
+	def get_hash():
+		hash = str(get_year())
+		if int(get_month) < 10:
+			hash += '0'
+		hash += str(get_month())
+		if int(get_day()) < 10:
+			hash += '0'
+		hash += str(get_day())
+		
+		if int(get_hour()) < 10:
+			hash += '0'
+		hash += str(get_hour())
+		if int(get_minute()) < 10:
+			hash += '0'
+		hash += str(get_minute())
+		if int(get_second()) < 10:
+			hash += '0'
+		hash += str(get_second())
+		return hash
 		
 	def get_data(index):
 		return get_full_date()[index]

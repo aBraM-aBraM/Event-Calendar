@@ -9,6 +9,11 @@ add_event_str = "Add Event"
 action_add_str = ["Name: ", "Location: ", "Year: ","Month: ","Day: ","Hour: ","Minute: ","Second: "]
 action_time_str = ["Year: ","Month: ","Day: ","Hour: ","Minute: ","Second: "]
 
+
+def init():
+	calendar.init()
+	menu_ui()
+
 def cls():
 	os.system('cls')
 
@@ -18,7 +23,7 @@ def between(a, x, z):
 def add_event_ui():
 	cls()
 	print (add_event_str)
-	data = ['y','m','d','h','min','s']
+	data = [None, None, None, None, None, None, None, None]
 	action_step = 0
 	while True:
 		input_data = input(action_add_str[action_step])
@@ -39,7 +44,7 @@ def add_event_ui():
 				if bool:
 					action_step += 1
 				else:
-					data[action_step] = ''
+					data[action_step] = None
 		if action_step == 8:
 			calendar.add_event(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7])
 
@@ -85,3 +90,8 @@ def menu_ui():
 		if input_data == 2;
 			calendar.save_data()
 			break
+
+
+init()
+
+
