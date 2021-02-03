@@ -3,6 +3,7 @@ import event
 import os
 import time
 import json
+from calendar import timegm
 
 # memory database variable
 events_dict = {}
@@ -20,6 +21,10 @@ def init():
 			event_time = get_time(value["_Event__date"][0],
 			value["_Event__date"][1],value["_Event__date"][2],value["_Event__date"][3],
 			value["_Event__date"][4],value["_Event__date"][5])
+			#print(event_time)
+			#print (time.mktime(event_time))
+			if compare_time(time.gmtime(), event_time):
+				continue
 			new_event = event.Event(value["name"], value["location"], event_time)
 			events_dict[key] = new_event
 
@@ -37,6 +42,13 @@ def save_data(data_path=database_path):
 	for key, value in events_dict.items():
 		data[key] = value.__dict__
 	open(data_path,'w+').write(json.dumps(data))
+
+def compare_time(a,b):
+	c = (int(a.tm_year) - 1970) * 31536000 + int(a.tm_mon) * 2592000 + int(a.tm_mday) * 86400 + int(a.tm_hour) * 3600 + int(a.tm_min) * 60
+	c += int(a.tm_sec)
+	d = (int(b.tm_year) - 1970) * 31536000 + int(b.tm_mon) * 2592000 + int(b.tm_mday) * 86400 + int(b.tm_hour) * 3600 + int(b.tm_min) * 60
+	d += int(b.tm_sec)
+	return c > d
 
 def get_time(year, month, day, hour, minute, second):
 	# creates an instance of time with specified values

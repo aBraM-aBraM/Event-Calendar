@@ -1,4 +1,4 @@
-import calendar 
+import event_calendar 
 import event
 import os
 
@@ -11,8 +11,9 @@ action_add_str = ["Name: ", "Location: ", "Year: ","Month: ","Day: ","Hour: ","M
 action_time_str = ["Year: ","Month: ","Day: ","Hour: ","Minute: ","Second: "]
 
 
+
 def init():
-	calendar.init()
+	event_calendar.init()
 	menu_ui()
 
 def cls():
@@ -48,7 +49,7 @@ def add_event_ui():
 				else:
 					data[action_step] = None
 		if action_step == 8:
-			calendar.add_event_manual(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7])
+			event_calendar.add_event_manual(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7])
 			print("event added!")
 			input("PRESS ENTER TO CONTINUE")
 			return
@@ -66,7 +67,7 @@ def event_by_time_ui():
 			# if user wants he can exit to main menu
 			return
 		if input_data == str(SKIP_VALUE):
-			response = calendar.get_event_by_time(data)
+			response = event_calendar.get_event_by_time(data)
 			break
 		if input_data:
 			if input_data.isdigit():
@@ -82,7 +83,7 @@ def event_by_time_ui():
 				else:
 					data[action_step] = None
 		if action_step == 6:
-			response = calendar.get_event_by_time(data)
+			response = event_calendar.get_event_by_time(data)
 			break
 	print('\n'.join(map(event.Event.get_str,response)))
 	input("PRESS ENTER TO CONTINUE")
@@ -93,7 +94,7 @@ def menu_ui():
 		print('\n'.join(menu_str))
 		input_data = input()
 		if input_data == str(QUIT_VALUE):
-			calendar.save_data()
+			event_calendar.save_data()
 			break
 		if input_data == '0':
 			add_event_ui()
